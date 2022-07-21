@@ -2,12 +2,13 @@ pragma solidity ^0.8.10;
 import "forge-std/Test.sol";
 import {Fallback} from "../src/01-fallback.sol";
 
+// malicious function from receive() function
 contract FallBack01Test is Test {
     Fallback fback;
 
     function setUp() public {
         console.log(unicode"🧪 Setup Fallback...");
-        address bob = address(0xABC);
+        address bob = mkaddr("bob");
         vm.prank(bob);
         fback = new Fallback();
         emit log_named_address("At first, the owner is: ", fback.owner());
@@ -16,7 +17,7 @@ contract FallBack01Test is Test {
 
     function testFallback() public {
         console.log(unicode"🧪 Cracking Fallback...");
-        address alice = address(0xABCD);
+        address alice = mkaddr("alice");
         vm.deal(alice, 100 ether);
         emit log_named_uint("Alice balance is: ", alice.balance);
 
@@ -40,5 +41,13 @@ contract FallBack01Test is Test {
             address(fback).balance
         );
         emit log_named_address("Owner change to: ", fback.owner());
+    }
+
+    function mkaddr(string memory name) public returns (address) {
+        address addr = address(
+            uint160(uint256(keccak256(abi.encodePacked(name))))
+        );
+        vm.label(addr, name);
+        return addr;
     }
 }

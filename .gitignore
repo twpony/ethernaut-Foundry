@@ -1,7 +1,6 @@
 cache/
 out/
 assets/
-.github/
 
 # Ignore Environment Variables!
 .env

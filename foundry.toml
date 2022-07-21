@@ -3,7 +3,7 @@
 # See more config options at: https://github.com/gakonst/foundry/tree/master/config
 
 # The Default Profile
-[default]
+[profile.default]
 solc_version = '0.8.10'
 auto_detect_solc = false
 optimizer = true
@@ -15,6 +15,8 @@ remappings = [
   "@openzeppelin=lib/openzeppelin-contracts/contracts/"
 ]
 
+rpc_endpoints = { mainnet = "${RPC_MAINNET}" }
+
 # Extreme Fuzzing CI Profile :P
-[ci]
+[profile.ci]
 fuzz_runs = 100_000
