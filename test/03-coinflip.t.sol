@@ -1,4 +1,4 @@
-pragma solidity ^0.8.10;
+pragma solidity >=0.6.0 <0.9.0;
 import "forge-std/Test.sol";
 import {CoinFlip} from "../src/03-coinflip.sol";
 
@@ -12,7 +12,7 @@ contract CoinFlip03Test is Test {
     CoinFlip cflip;
 
     function setUp() public {
-        console.log(unicode"🧪 Setup CoinFlipTest...");
+        emit log_string("🧪 Setup CoinFlipTest...");
 
         address bob = mkaddr("bob");
         vm.prank(bob);
@@ -20,7 +20,7 @@ contract CoinFlip03Test is Test {
     }
 
     function testCoinFlip() public {
-        console.log(unicode"🧪 Cracking Coin Flip...");
+        emit log_string("🧪 Cracking Coin Flip...");
         address alice = mkaddr("alice");
         vm.deal(alice, 100 ether);
         vm.startPrank(alice);

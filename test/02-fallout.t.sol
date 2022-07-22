@@ -1,4 +1,4 @@
-pragma solidity ^0.8.10;
+pragma solidity >=0.6.0 <0.9.0;
 import "forge-std/Test.sol";
 import {Fallout} from "../src/02-fallout.sol";
 
@@ -7,18 +7,19 @@ contract Fallout02Test is Test {
     Fallout fout;
 
     function setUp() public {
-        console.log(unicode"🧪 Setup Fallout...");
+        emit log_string("🧪 Setup Fallout...");
         address bob = mkaddr("bob");
         vm.prank(bob);
         fout = new Fallout();
     }
 
     function testFallout() public {
-        console.log(unicode"🧪 Cracking Fallout...");
+        emit log_string("🧪 Cracking Fallout...");
         address alice = mkaddr("alice");
         vm.deal(alice, 100 ether);
         vm.startPrank(alice);
-        fout.Fal1out{value: 1 ether}();
+        // fout.Fal1out{value: 1 ether}(); // for solidity version v0.8.0
+        fout.Fal1out.value(1000_000_000)(); // for solidity version v0.6.0
         fout.collectAllocations();
         vm.stopPrank();
         emit log_named_address("Owner change to: ", fout.owner());
